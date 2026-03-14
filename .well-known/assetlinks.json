@@ -3,6 +3,6 @@
       "target": {
         "namespace": "android_app",
         "package_name": "io.github.cryptidcolouring.twa",
-        "sha256_cert_fingerprints": ["88:72:A4:31:D7:95:CA:9B:93:FF:FA:35:CC:E8:FF:66:C5:13:64:8F:11:8E:1C:09:35:BA:B1:AA:F4:13:DD:14"]
+        "sha256_cert_fingerprints": ["71:07:5B:41:E7:67:33:B2:1B:70:CB:8D:23:DC:3A:EF:2B:D6:AA:EF:32:DE:1E:F0:B9:BF:F2:86:1F:3E:FE:E7"]
       }
     }]
