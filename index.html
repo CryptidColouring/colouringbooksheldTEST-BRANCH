@@ -75,8 +75,8 @@
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; right: 0;
     height: calc(var(--nav-h) + var(--safe-bottom));
-    background: var(--white);
-    border-top: 1.5px solid var(--parchment);
+    background: var(--terracotta);
+    border-top: 1.5px solid var(--primary-dark);
     display: flex; align-items: flex-start;
     padding-top: 6px;
     box-shadow: 0 -4px 16px var(--shadow);
@@ -86,12 +86,12 @@
     flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
     padding: 6px 4px;
     background: none; border: none; cursor: pointer;
-    color: var(--ink-soft); font-family: 'Nunito', sans-serif;
+    color: rgba(255,255,255,0.7); font-family: 'Nunito', sans-serif;
     font-size: 11px; font-weight: 600;
     transition: color 0.15s;
   }
   .nav-btn .icon { font-size: 22px; line-height: 1; transition: transform 0.15s; }
-  .nav-btn.active { color: var(--terracotta); }
+  .nav-btn.active { color: white; }
   .nav-btn.active .icon { transform: scale(1.15); }
 
   /* ── Cards & common ── */
@@ -120,24 +120,84 @@
   .badge-unused   { background: var(--cream-dark); color: var(--ink-soft); }
 
   /* ── LIBRARY VIEW ── */
+  /* ── Library toolbar ── */
+  .lib-toolbar {
+    display: flex; gap: 8px; margin-bottom: 14px;
+  }
+  .lib-toolbar-btn {
+    flex: 1; padding: 9px 6px; border: none; border-radius: var(--radius-sm);
+    background: var(--cream-dark); color: var(--ink-mid);
+    font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 700;
+    cursor: pointer; transition: all 0.15s; text-align: center;
+  }
+  .lib-toolbar-btn:active { background: var(--parchment); }
+  .lib-toolbar-btn.has-active { background: var(--terracotta); color: white; }
+
+  /* Pills inside sheets */
   .sort-bar {
-    display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; align-items: center;
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
   }
   .sort-label { font-size: 12px; font-weight: 600; color: var(--ink-soft); }
   .sort-pill {
-    padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600;
     background: var(--cream-dark); color: var(--ink-mid); border: none; cursor: pointer;
     transition: all 0.15s;
   }
   .sort-pill.active { background: var(--terracotta); color: white; }
   .filter-pill {
-    padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600;
     background: var(--cream-dark); color: var(--ink-mid); border: 1.5px solid transparent;
     cursor: pointer; transition: all 0.15s;
   }
   .filter-pill.active { border-color: var(--terracotta); color: var(--terracotta); background: #DDF0E2; }
 
   .book-count { font-size: 13px; color: var(--ink-soft); margin-bottom: 10px; font-weight: 600; }
+
+  /* ── View toggle ── */
+  .view-toggle-row {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .view-toggle-btn {
+    background: var(--cream-dark); border: none; border-radius: var(--radius-sm);
+    padding: 5px 10px; font-size: 18px; cursor: pointer; line-height: 1;
+    transition: background 0.15s;
+  }
+  .view-toggle-btn.active { background: var(--terracotta); }
+
+  /* ── Grid view ── */
+  #book-list.grid-view {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .book-grid-card {
+    background: var(--white); border-radius: var(--radius-sm);
+    overflow: hidden; cursor: pointer;
+    box-shadow: 0 2px 8px var(--shadow);
+    display: flex; flex-direction: column;
+  }
+  .book-grid-cover {
+    width: 100%; aspect-ratio: 1/1; object-fit: cover;
+  }
+  .book-grid-cover-placeholder {
+    width: 100%; aspect-ratio: 1/1;
+    background: var(--cream-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+  }
+  .book-grid-info {
+    padding: 6px 8px 8px;
+  }
+  .book-grid-title {
+    font-size: 11px; font-weight: 700; color: var(--ink);
+    line-height: 1.3; overflow: hidden;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  }
+  .book-grid-author {
+    font-size: 10px; color: var(--ink-soft); margin-top: 2px;
+    overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  }
 
   .book-card {
     background: var(--white);
@@ -502,7 +562,10 @@
   }
   #wheel-preview-hex {
     font-size: 14px; font-weight: 600; color: var(--ink); font-family: monospace;
+    background: none; border: none; border-bottom: 1.5px solid var(--cream-dark);
+    width: 90px; padding: 2px 4px; outline: none; cursor: text;
   }
+  #wheel-preview-hex:focus { border-bottom-color: var(--terracotta); }
 
   .settings-section-title {
     font-family: 'Playfair Display', serif;
@@ -533,17 +596,6 @@
   .shelf-body.open { display: block; }
 
   /* ── Share / Compare ── */
-  .share-row {
-    display: flex; gap: 8px; margin-bottom: 14px;
-  }
-  .share-btn {
-    flex: 1; padding: 8px 6px; border: none; border-radius: var(--radius-sm);
-    background: var(--cream-dark); color: var(--ink-mid);
-    font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 700;
-    cursor: pointer; transition: all 0.15s; text-align: center;
-  }
-  .share-btn:active { background: var(--parchment); }
-
   /* ── Compare results ── */
   .compare-section { margin-top: 16px; }
   .compare-badge {
@@ -710,26 +762,18 @@
 
     <!-- ── LIBRARY VIEW ── -->
     <div class="view active" id="view-library">
-      <div class="share-row">
-        <button class="share-btn" onclick="shareAsText()">📤 Share List</button>
-        <button class="share-btn" onclick="shareAsFile()">📦 Share File</button>
-        <button class="share-btn" onclick="openCompare()">🔀 Compare Lists</button>
+      <div class="lib-toolbar">
+        <button class="lib-toolbar-btn" id="btn-share-sheet" onclick="openLibSheet('share')">📤 Share / Import</button>
+        <button class="lib-toolbar-btn" id="btn-sort-sheet" onclick="openLibSheet('sort')">↕️ Sort</button>
+        <button class="lib-toolbar-btn" id="btn-filter-sheet" onclick="openLibSheet('filter')">🔽 Filter</button>
       </div>
-      <div class="sort-bar">
-        <span class="sort-label">Sort:</span>
-        <button class="sort-pill active" data-sort="title">Title</button>
-        <button class="sort-pill" data-sort="author">Author</button>
-        <button class="sort-pill" data-sort="pages">Pages</button>
+      <div class="view-toggle-row">
+        <div class="book-count" id="book-count"></div>
+        <div style="display:flex;gap:6px">
+          <button class="view-toggle-btn active" id="btn-list-view" onclick="setLibView('list')" title="List view">☰</button>
+          <button class="view-toggle-btn" id="btn-grid-view" onclick="setLibView('grid')" title="Grid view">⊞</button>
+        </div>
       </div>
-      <div class="sort-bar" style="margin-top:-6px">
-        <span class="sort-label">Filter:</span>
-        <button class="filter-pill" data-filter="physical">📚 Physical</button>
-        <button class="filter-pill" data-filter="digital">💻 Digital</button>
-        <button class="filter-pill" data-filter="used">✅ Used</button>
-        <button class="filter-pill" data-filter="unused">⏳ Unused</button>
-        <button class="filter-pill" data-filter="hidecomplete">🙈 Hide Complete</button>
-      </div>
-      <div class="book-count" id="book-count"></div>
       <div id="book-list"></div>
 
       <!-- Honour Shelf -->
@@ -807,7 +851,7 @@
           <div class="pages-row">
             <div class="form-group">
               <label class="form-label" style="font-size:11px">Coloured so far</label>
-              <input class="form-input" id="f-pages" type="number" min="0" placeholder="0">
+              <input class="form-input" id="f-pages" type="number" min="0" placeholder="0" oninput="if(parseInt(this.value)>0){toggleState.used=true;updateToggles();}">
             </div>
             <div class="form-group">
               <label class="form-label" style="font-size:11px">Total in book</label>
@@ -897,7 +941,7 @@
 
       <div class="help-section">
         <div class="help-section-title">👋 Getting Started</div>
-        <p>Your Colour Shelf lives entirely on your device — no account needed, no internet required after the first load. All your books are saved automatically as you go.</p>
+        <p>Your Colouring Bookshelf lives entirely on your device — no account needed, no internet required after the first load. All your books are saved automatically as you go.</p>
       </div>
 
       <div class="help-section">
@@ -913,11 +957,12 @@
       </div>
 
       <div class="help-section">
-        <div class="help-section-title">🏆😈 Honour & Naughty Shelves</div>
+        <div class="help-section-title">🏆😈📅 Special Shelves</div>
         <p>To move a book to a special shelf, tap the book → <strong>Edit</strong> → scroll to the <strong>Shelf</strong> section → toggle the shelf you want.</p>
         <p>🏆 The <strong>Honour Shelf</strong> is for books you've finished — completed and celebrated.</p>
         <p>😈 The <strong>Naughty Shelf</strong> is for books you've parked — started and abandoned, or ones you're not sure about.</p>
-        <p>Both shelves appear as collapsible sections at the bottom of your Library once they have books in them.</p>
+        <p>📅 The <strong>Seasonal Shelf</strong> is for books tied to specific holidays, seasons, or months.</p>
+        <p>All three shelves appear as collapsible sections at the bottom of your Library once they have books in them.</p>
       </div>
 
       <div class="help-section">
@@ -937,13 +982,16 @@
 
       <div class="help-section">
         <div class="help-section-title">📅 Calendar</div>
-        <p>Tap <strong>Calendar</strong> to plan your colouring projects. Tap any date to select it, then tap <strong>Add event on this day</strong> to create an event with a name and notes. Upcoming events appear in a list below the calendar.</p>
+        <p>Tap <strong>Calendar</strong> to plan your colouring projects. Tap any date to select it, then tap <strong>Add event on this day</strong> to create an event with a name and optional notes.</p>
+        <p>You can mark events as <strong>✅ Completed</strong> or <strong>❌ Skipped</strong> by tapping the event's edit button. Completed events turn green, skipped events turn red — making it easy to scan what's still to do at a glance.</p>
+        <p>To set a <strong>reminder notification</strong>, toggle <strong>🔔 Remind me</strong> when creating or editing an event, then choose a time and how far in advance you'd like to be notified. The app will need to be opened at least once within 48 hours of the event for the reminder to fire.</p>
+        <p>Upcoming events appear in a list below the calendar. Events with reminders show a blue 🔔 badge.</p>
       </div>
 
       <div class="help-section">
         <div class="help-section-title">📤 Sharing Your List</div>
         <p>From the top of the Library screen, tap <strong>Share List</strong> to send a plain text version of your books via WhatsApp, Messages, email, or any other app on your phone.</p>
-        <p>Tap <strong>Share File</strong> to export your full data as a file — useful for sending to another Colour Shelf user so they can import it directly.</p>
+        <p>Tap <strong>Share File</strong> to export your full data as a file — useful for sending to another Colouring Bookshelf user so they can import it directly.</p>
       </div>
 
       <div class="help-section">
@@ -953,14 +1001,16 @@
 
       <div class="help-section">
         <div class="help-section-title">💾 Backing Up Your Data</div>
-        <p>Tap <strong>Change Theme 🎨</strong> in the top right → scroll down to <strong>Your Data</strong> → tap <strong>Export Backup</strong>. This saves a file to your phone containing all your books and photos.</p>
-        <p>To restore after reinstalling: open the app, go to Change Theme → Your Data → <strong>Import Backup</strong>, and select your saved file.</p>
-        <p>⚠️ <strong>iPhone users especially:</strong> Apple can clear app data if your phone runs low on storage. Export a backup regularly and keep it somewhere safe like iCloud or email it to yourself.</p>
+        <p>Tap the <strong>⚙️</strong> icon in the top right → scroll down to <strong>Your Data</strong> → tap <strong>Export Backup</strong>. This saves a file to your phone containing all your books and photos.</p>
+        <p>To restore after reinstalling: open the app, go to ⚙️ → Your Data → <strong>Import Backup</strong>, and select your saved file.</p>
+        <p>The app will remind you to back up if it's been more than 14 days since your last export. We strongly recommend keeping a recent backup somewhere safe — like cloud storage or emailed to yourself.</p>
+        <p>⚠️ <strong>iPhone users especially:</strong> Apple can clear app data if your phone runs low on storage. Back up regularly.</p>
       </div>
 
       <div class="help-section">
         <div class="help-section-title">🎨 Changing the Colour Theme</div>
-        <p>Tap the <strong>Change Theme 🎨</strong> button in the top right corner. Choose from one of the preset colour schemes, or tap the colour circles under Custom Colours to pick your own exact colours.</p>
+        <p>Tap the <strong>⚙️</strong> icon in the top right. Choose from one of the preset colour schemes, or tap the colour circles under <strong>Custom Colours</strong> to open the colour picker.</p>
+        <p>The colour picker shows a <strong>hue ring</strong> — drag around it to choose a colour family — and two sliders for <strong>Saturation</strong> (how vivid the colour is) and <strong>Brightness</strong> (how light or dark). A preview swatch shows what your selection will look like before you confirm.</p>
       </div>
 
       <div class="help-beta">
@@ -970,7 +1020,7 @@
       </div>
 
       <div class="help-disclaimer">
-        <em>Colour Shelf is provided as-is. All data is stored locally on your device and is outside our control — we have no ability to access, recover, or restore it. This app operates entirely within its own storage and does not interact with, modify, or access anything else on your device. We cannot be held responsible for any loss of data within the app or issues arising from use. Regular backups are strongly recommended.</em>
+        <em>Colouring Bookshelf is provided as-is. All data is stored locally on your device and is outside our control — we have no ability to access, recover, or restore it. This app operates entirely within its own storage and does not interact with, modify, or access anything else on your device. We cannot be held responsible for any loss of data within the app or issues arising from use. Regular backups are strongly recommended.</em>
       </div>
 
     </div>
@@ -1058,12 +1108,26 @@
     <div class="sheet-handle"></div>
     <div class="sheet-title" id="cal-sheet-title">Add Event</div>
     <div class="form-group">
+      <label class="form-label">Date</label>
+      <input class="form-input" type="date" id="cal-f-date">
+    </div>
+    <div class="form-group">
       <label class="form-label">Event Name *</label>
       <input class="form-input" id="cal-f-name" placeholder="e.g. Buddy Colour — Forest Theme" autocomplete="off">
     </div>
     <div class="form-group">
       <label class="form-label">Notes</label>
       <input class="form-input" id="cal-f-notes" placeholder="e.g. Pages 12-14, green palette" autocomplete="off">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Image <span style="font-weight:400;color:var(--ink-soft)">(optional — moodboard, pages, etc.)</span></label>
+      <div class="photo-upload-area" id="cal-photo-upload-area" style="height:120px" onclick="triggerCalPhotoInput()">
+        <img id="cal-photo-preview" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:var(--radius-sm)">
+        <span class="photo-upload-icon" id="cal-photo-icon">🖼</span>
+        <span class="photo-upload-label" id="cal-photo-hint">Tap to add image</span>
+        <button class="photo-remove" id="cal-photo-remove" onclick="removeCalPhoto(event)">✕</button>
+        <input type="file" id="cal-f-photo" accept="image/*" style="display:none" onchange="handleCalPhoto(event)">
+      </div>
     </div>
     <div class="form-group">
       <label class="form-label">Status</label>
@@ -1075,6 +1139,24 @@
         <div class="toggle-row" onclick="setCalStatus('skipped')">
           <span class="toggle-label">❌ Skipped</span>
           <div class="toggle-switch" id="t-cal-skipped"></div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="toggle-group">
+        <div class="toggle-row" onclick="toggleRepeat()">
+          <span class="toggle-label">🔁 Repeat event</span>
+          <div class="toggle-switch" id="t-repeat"></div>
+        </div>
+      </div>
+      <div id="repeat-options" style="display:none;margin-top:12px;padding:14px;background:var(--cream);border-radius:var(--radius-sm)">
+        <div style="display:flex;gap:12px;align-items:center">
+          <label class="form-label" style="margin:0;white-space:nowrap">Repeat every</label>
+          <select class="form-input" id="cal-f-repeat" style="flex:1">
+            <option value="7">1 week</option>
+            <option value="14">2 weeks</option>
+            <option value="28">4 weeks (monthly)</option>
+          </select>
         </div>
       </div>
     </div>
@@ -1106,6 +1188,26 @@
   </div>
 </div>
 
+<!-- Book title search sheet -->
+<!-- Reusable confirm modal -->
+<div id="confirm-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:500;align-items:center;justify-content:center;padding:24px">
+  <div style="background:var(--white);border-radius:var(--radius);padding:24px;width:100%;max-width:360px;box-shadow:0 8px 32px rgba(0,0,0,0.2)">
+    <div id="confirm-title" style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:8px"></div>
+    <div id="confirm-message" style="font-size:14px;color:var(--ink-soft);margin-bottom:20px;line-height:1.5"></div>
+    <div id="confirm-buttons"></div>
+  </div>
+</div>
+
+<!-- Calendar image viewer -->
+<div id="cal-img-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:400;align-items:center;justify-content:center" onclick="document.getElementById('cal-img-modal').style.display='none'">
+  <img id="cal-img-modal-img" style="max-width:92vw;max-height:85vh;border-radius:12px;object-fit:contain" alt="event image">
+</div>
+
+<!-- Library sheets -->
+<div class="overlay" id="lib-sheet-overlay" onclick="closeLibSheet(event)">
+  <div class="sheet" id="lib-sheet-content"></div>
+</div>
+
 <!-- Hidden import file input -->
 <input type="file" id="import-file-input" accept=".json" style="display:none" onchange="handleImport(event)">
 
@@ -1128,7 +1230,7 @@
       <div id="wheel-preview-swatch"></div>
       <div>
         <div class="picker-label">Selected colour</div>
-        <div id="wheel-preview-hex" class="picker-sub">#000000</div>
+        <input class="picker-sub" id="wheel-preview-hex" maxlength="7" spellcheck="false" oninput="onHexInput(this.value)">
       </div>
     </div>
     <button class="btn btn-primary" onclick="confirmWheelPicker()" style="margin-bottom:8px">✅ Use this colour</button>
@@ -1147,33 +1249,83 @@ let currentSort = 'title';
 let activeFilters = new Set();
 let toggleState = { physical: false, digital: false, used: false };
 let currentPhoto = null; // base64 string or null
+let currentCalPhoto = null; // base64 string or null for calendar events
 
 // ── Photo handling ────────────────────────────────────────────
 function triggerPhotoInput() {
   document.getElementById('f-photo').click();
 }
 
-function handlePhoto(e) {
-  const file = e.target.files[0];
-  if (!file) return;
+function triggerCalPhotoInput() {
+  document.getElementById('cal-f-photo').click();
+}
+
+function compressPhoto(file, size, cb) {
   const reader = new FileReader();
   reader.onload = ev => {
     const img = new Image();
     img.onload = () => {
-      // Compress to 300x300 canvas
       const canvas = document.createElement('canvas');
-      canvas.width = 300; canvas.height = 300;
+      canvas.width = size; canvas.height = size;
       const ctx = canvas.getContext('2d');
-      // Cover crop
-      const ratio = Math.max(300 / img.width, 300 / img.height);
+      const ratio = Math.max(size / img.width, size / img.height);
       const w = img.width * ratio, h = img.height * ratio;
-      ctx.drawImage(img, (300 - w) / 2, (300 - h) / 2, w, h);
-      currentPhoto = canvas.toDataURL('image/jpeg', 0.7);
-      showPhotoPreview(currentPhoto);
+      ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h);
+      cb(canvas.toDataURL('image/jpeg', 0.7));
     };
     img.src = ev.target.result;
   };
   reader.readAsDataURL(file);
+}
+
+function handlePhoto(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  compressPhoto(file, 300, data => {
+    currentPhoto = data;
+    showPhotoPreview(data);
+  });
+}
+
+function handleCalPhoto(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  compressPhoto(file, 400, data => {
+    currentCalPhoto = data;
+    showCalPhotoPreview(data);
+  });
+}
+
+function showCalPhotoPreview(src) {
+  const preview = document.getElementById('cal-photo-preview');
+  preview.src = src; preview.style.display = 'block';
+  document.getElementById('cal-photo-icon').style.display = 'none';
+  document.getElementById('cal-photo-hint').style.display = 'none';
+  document.getElementById('cal-photo-remove').classList.add('visible');
+}
+
+function resetCalPhotoUI() {
+  const preview = document.getElementById('cal-photo-preview');
+  if (preview) { preview.src = ''; preview.style.display = 'none'; }
+  const icon = document.getElementById('cal-photo-icon');
+  const hint = document.getElementById('cal-photo-hint');
+  const rem  = document.getElementById('cal-photo-remove');
+  if (icon) icon.style.display = '';
+  if (hint) hint.style.display = '';
+  if (rem)  rem.classList.remove('visible');
+  const inp = document.getElementById('cal-f-photo');
+  if (inp) inp.value = '';
+}
+
+function removeCalPhoto(e) {
+  e.stopPropagation();
+  currentCalPhoto = null;
+  const preview = document.getElementById('cal-photo-preview');
+  preview.src = ''; preview.style.display = 'none';
+  document.getElementById('cal-photo-icon').style.display = '';
+  document.getElementById('cal-photo-hint').style.display = '';
+  document.getElementById('cal-photo-remove').classList.remove('visible');
+  document.getElementById('cal-f-photo').value = '';
 }
 
 function showPhotoPreview(src) {
@@ -1257,7 +1409,9 @@ function uid() { return Date.now().toString(36) + Math.random().toString(36).sli
 function showView(name) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('view-' + name).classList.add('active');
+  const view = document.getElementById('view-' + name);
+  view.classList.add('active');
+  view.scrollTop = 0;
   const nb = document.querySelector(`.nav-btn[data-view="${name}"]`);
   if (nb) nb.classList.add('active');
   if (name === 'library')  renderLibrary();
@@ -1276,14 +1430,17 @@ function updateHeader() {
 }
 
 // ── Library ───────────────────────────────────────────────────
+let vList        = [];      // current filtered+sorted main list
+let vCardHeight  = 120;     // estimated card height in px, measured after first render
+let vScrollTimer = null;    // debounce handle
+
 function renderLibrary() {
-  // Separate into shelves
-  const mainBooks    = books.filter(b => !b.shelf);
-  const honourBooks  = books.filter(b => b.shelf === 'honour');
-  const naughtyBooks = books.filter(b => b.shelf === 'naughty');
+  const mainBooks     = books.filter(b => !b.shelf);
+  const honourBooks   = books.filter(b => b.shelf === 'honour');
+  const naughtyBooks  = books.filter(b => b.shelf === 'naughty');
   const seasonalBooks = books.filter(b => b.shelf === 'seasonal');
 
-  // Apply filters + sort to main list
+  // Apply filters + sort
   let list = [...mainBooks];
   if (activeFilters.has('physical'))     list = list.filter(b => b.physical);
   if (activeFilters.has('digital'))      list = list.filter(b => b.digital);
@@ -1293,9 +1450,16 @@ function renderLibrary() {
     if (!b.totalPages || b.totalPages === 0) return true;
     return (b.pages || 0) < b.totalPages;
   });
-  if (currentSort === 'title')  list.sort((a,b) => (a.title||'').localeCompare(b.title||''));
-  if (currentSort === 'author') list.sort((a,b) => (a.author||'').localeCompare(b.author||''));
-  if (currentSort === 'pages')  list.sort((a,b) => (b.pages||0) - (a.pages||0));
+  if (currentSort === 'title')   list.sort((a,b) => (a.title||'').localeCompare(b.title||''));
+  if (currentSort === 'author')  list.sort((a,b) => (a.author||'').localeCompare(b.author||''));
+  if (currentSort === 'pages')   list.sort((a,b) => (b.pages||0) - (a.pages||0));
+  if (currentSort === 'percent') list.sort((a,b) => {
+    const pctA = a.totalPages > 0 ? (a.pages||0) / a.totalPages : 0;
+    const pctB = b.totalPages > 0 ? (b.pages||0) / b.totalPages : 0;
+    return pctB - pctA;
+  });
+
+  vList = list;
 
   const countEl = document.getElementById('book-count');
   countEl.textContent = list.length === 0
@@ -1312,38 +1476,189 @@ function renderLibrary() {
   } else if (list.length === 0) {
     el.innerHTML = `<div class="empty-state"><div class="big-emoji">🔍</div><h3>No matches</h3><p>Try removing some filters.</p></div>`;
   } else {
-    el.innerHTML = list.map(b => bookCardHTML(b)).join('');
+    renderVirtualWindow();
+    // Measure real card height after first paint
+    requestAnimationFrame(() => {
+      const firstCard = el.querySelector('.book-card');
+      if (firstCard) {
+        const h = firstCard.getBoundingClientRect().height;
+        if (h > 0) vCardHeight = h + 12; // include gap
+      }
+    });
   }
 
-  // Render special shelves
   renderShelf('honour', honourBooks);
   renderShelf('naughty', naughtyBooks);
   renderShelf('seasonal', seasonalBooks);
 }
 
-// Sort pills
-document.querySelectorAll('.sort-pill').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.sort-pill').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentSort = btn.dataset.sort;
-    renderLibrary();
-  });
-});
+const LIB_VIEW_KEY = 'cb_lib_view';
+let libView = localStorage.getItem(LIB_VIEW_KEY) || 'list';
 
-// Filter pills
-document.querySelectorAll('.filter-pill').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const f = btn.dataset.filter;
-    // Exclusive pairs
-    if (f === 'used' && activeFilters.has('unused')) activeFilters.delete('unused');
-    if (f === 'unused' && activeFilters.has('used')) activeFilters.delete('used');
-    if (activeFilters.has(f)) activeFilters.delete(f);
-    else activeFilters.add(f);
-    document.querySelectorAll('.filter-pill').forEach(b => b.classList.toggle('active', activeFilters.has(b.dataset.filter)));
-    renderLibrary();
-  });
-});
+function setLibView(mode) {
+  libView = mode;
+  localStorage.setItem(LIB_VIEW_KEY, mode);
+  document.getElementById('btn-list-view').classList.toggle('active', mode === 'list');
+  document.getElementById('btn-grid-view').classList.toggle('active', mode === 'grid');
+  renderVirtualWindow();
+}
+
+function renderVirtualWindow() {
+  const el        = document.getElementById('book-list');
+  const view      = document.getElementById('view-library');
+  const scrollTop = view.scrollTop;
+  const viewH     = view.clientHeight;
+  const BUFFER    = 5;
+  const isGrid    = libView === 'grid';
+
+  // Update book-list class for grid CSS
+  el.classList.toggle('grid-view', isGrid);
+
+  const total    = vList.length;
+  const cols     = isGrid ? 3 : 1;
+  const rowH     = isGrid ? vCardHeight * 1.4 : vCardHeight;
+  const rows     = Math.ceil(total / cols);
+  const startRow = Math.max(0, Math.floor(scrollTop / rowH) - BUFFER);
+  const endRow   = Math.min(rows, Math.ceil((scrollTop + viewH) / rowH) + BUFFER);
+  const startIdx = startRow * cols;
+  const endIdx   = Math.min(total, endRow * cols);
+
+  const topPad = startRow * rowH;
+  const botPad = Math.max(0, (rows - endRow) * rowH);
+
+  const fragment = document.createDocumentFragment();
+
+  const top = document.createElement('div');
+  top.style.height = topPad + 'px';
+  if (isGrid) top.style.gridColumn = '1 / -1';
+  fragment.appendChild(top);
+
+  for (let i = startIdx; i < endIdx; i++) {
+    const div = document.createElement('div');
+    div.innerHTML = isGrid ? bookGridCardHTML(vList[i]) : bookCardHTML(vList[i]);
+    fragment.appendChild(div.firstChild);
+  }
+
+  const bot = document.createElement('div');
+  bot.style.height = botPad + 'px';
+  if (isGrid) bot.style.gridColumn = '1 / -1';
+  fragment.appendChild(bot);
+
+  el.innerHTML = '';
+  el.appendChild(fragment);
+}
+
+function onLibraryScroll() {
+  if (vList.length === 0) return;
+  clearTimeout(vScrollTimer);
+  vScrollTimer = setTimeout(renderVirtualWindow, 30);
+}
+
+// ── Library sheets ────────────────────────────────────────────
+function openLibSheet(type) {
+  const sheet = document.getElementById('lib-sheet-content');
+  if (type === 'share') {
+    sheet.innerHTML = `
+      <div class="sheet-handle"></div>
+      <div class="sheet-title">📤 Share / Import</div>
+      <button class="btn btn-primary" onclick="shareAsText();closeLibSheet()" style="margin-bottom:10px">📤 Share List</button>
+      <button class="btn btn-primary" onclick="shareAsFile();closeLibSheet()" style="margin-bottom:10px">📦 Share File</button>
+      <button class="btn btn-secondary" onclick="openCompare();closeLibSheet()">🔀 Compare Lists</button>`;
+  } else if (type === 'sort') {
+    const sorts = [
+      { key: 'title',   label: 'Title' },
+      { key: 'author',  label: 'Author' },
+      { key: 'pages',   label: 'Pages done' },
+      { key: 'percent', label: '% Complete' },
+    ];
+    sheet.innerHTML = `
+      <div class="sheet-handle"></div>
+      <div class="sheet-title">↕️ Sort Library</div>
+      <div class="sort-bar" style="flex-direction:column;align-items:stretch">
+        ${sorts.map(s => `
+          <button class="sort-pill${currentSort === s.key ? ' active' : ''}"
+            style="text-align:left;border-radius:var(--radius-sm);padding:12px 16px"
+            onclick="setSort('${s.key}')">
+            ${currentSort === s.key ? '✓ ' : ''}${s.label}
+          </button>`).join('')}
+      </div>`;
+  } else if (type === 'filter') {
+    const filters = [
+      { key: 'physical',    label: '📚 Physical only' },
+      { key: 'digital',     label: '💻 Digital only' },
+      { key: 'used',        label: '✅ Used only' },
+      { key: 'unused',      label: '⏳ Unused only' },
+      { key: 'hidecomplete',label: '🙈 Hide complete' },
+    ];
+    const tagsHidden = localStorage.getItem('cb_hide_tags') === '1';
+    sheet.innerHTML = `
+      <div class="sheet-handle"></div>
+      <div class="sheet-title">🔽 Filter Library</div>
+      <div class="sort-bar" style="flex-direction:column;align-items:stretch">
+        ${filters.map(f => `
+          <button class="filter-pill${activeFilters.has(f.key) ? ' active' : ''}"
+            style="text-align:left;border-radius:var(--radius-sm);padding:12px 16px"
+            onclick="toggleFilter('${f.key}')">
+            ${activeFilters.has(f.key) ? '✓ ' : ''}${f.label}
+          </button>`).join('')}
+        <button class="filter-pill${tagsHidden ? ' active' : ''}"
+          style="text-align:left;border-radius:var(--radius-sm);padding:12px 16px"
+          onclick="toggleHideTags()">
+          ${tagsHidden ? '✓ ' : ''}🏷 Hide tags
+        </button>
+      </div>
+      ${activeFilters.size > 0 ? `<button class="btn btn-secondary" style="margin-top:12px" onclick="clearFilters()">✖ Clear all filters</button>` : ''}`;
+  }
+  document.getElementById('lib-sheet-overlay').classList.add('open');
+  updateToolbarState();
+}
+
+function closeLibSheet(e) {
+  if (!e || e.target === document.getElementById('lib-sheet-overlay')) {
+    document.getElementById('lib-sheet-overlay').classList.remove('open');
+  }
+}
+
+function setSort(key) {
+  currentSort = key;
+  renderLibrary();
+  closeLibSheet();
+  updateToolbarState();
+}
+
+function toggleFilter(f) {
+  if (f === 'used'   && activeFilters.has('unused')) activeFilters.delete('unused');
+  if (f === 'unused' && activeFilters.has('used'))   activeFilters.delete('used');
+  if (activeFilters.has(f)) activeFilters.delete(f);
+  else activeFilters.add(f);
+  renderLibrary();
+  // Re-render the filter sheet in place so checkmarks update
+  openLibSheet('filter');
+  updateToolbarState();
+}
+
+function clearFilters() {
+  activeFilters.clear();
+  renderLibrary();
+  closeLibSheet();
+  updateToolbarState();
+}
+
+function updateToolbarState() {
+  const sortBtn   = document.getElementById('btn-sort-sheet');
+  const filterBtn = document.getElementById('btn-filter-sheet');
+  if (sortBtn)   sortBtn.classList.toggle('has-active', currentSort !== 'title');
+  const tagsHidden = localStorage.getItem('cb_hide_tags') === '1';
+  if (filterBtn) filterBtn.classList.toggle('has-active', activeFilters.size > 0 || tagsHidden);
+}
+
+function toggleHideTags() {
+  const hidden = localStorage.getItem('cb_hide_tags') === '1';
+  localStorage.setItem('cb_hide_tags', hidden ? '0' : '1');
+  renderLibrary();
+  openLibSheet('filter');
+  updateToolbarState();
+}
 
 // ── Book card HTML helper ─────────────────────────────────────
 function bookCardHTML(b) {
@@ -1353,7 +1668,8 @@ function bookCardHTML(b) {
   badges.push(b.used
     ? `<span class="badge badge-used">✅ Used</span>`
     : `<span class="badge badge-unused">⏳ Not started</span>`);
-  const tags = b.tags ? `<div class="book-card-tags">🏷 ${esc(b.tags)}</div>` : '';
+  const tagsHidden = localStorage.getItem('cb_hide_tags') === '1';
+  const tags = (!tagsHidden && b.tags) ? `<div class="book-card-tags">🏷 ${esc(b.tags)}</div>` : '';
   const pages = b.pages > 0 ? `<span class="book-card-pages">🖍 ${b.pages} pages</span>` : '';
   let completionHtml = '';
   if (b.totalPages > 0) {
@@ -1374,6 +1690,19 @@ function bookCardHTML(b) {
         <div class="book-card-meta">${badges.join('')}${pages}</div>
         ${tags}${completionHtml}
       </div>
+    </div>
+  </div>`;
+}
+
+function bookGridCardHTML(b) {
+  const coverHtml = (b.photo && safePhoto(b.photo))
+    ? `<img class="book-grid-cover" src="${b.photo}" alt="cover">`
+    : `<div class="book-grid-cover-placeholder">📚</div>`;
+  return `<div class="book-grid-card${b.used ? ' used' : ''}" onclick="openBook('${b.id}')">
+    ${coverHtml}
+    <div class="book-grid-info">
+      <div class="book-grid-title">${esc(b.title)}</div>
+      ${b.author ? `<div class="book-grid-author">${esc(b.author)}</div>` : ''}
     </div>
   </div>`;
 }
@@ -1526,20 +1855,22 @@ function openBook(id) {
     ${pages}${tags}${completionHtml}
     <div style="display:flex;gap:10px;margin-top:20px">
       <button class="btn btn-primary" style="flex:1" onclick="editBook('${b.id}')">✏️ Edit</button>
-      <button class="btn btn-secondary" style="flex:1" onclick="quickToggleUsed('${b.id}')">
-        ${b.used ? '↩️ Mark unused' : '✅ Mark used'}
+      <button class="btn btn-secondary" style="flex:1" onclick="quickAddPage('${b.id}')">
+        ➕ Add completed page
       </button>
     </div>`;
   document.getElementById('overlay').classList.add('open');
 }
 
-async function quickToggleUsed(id) {
+async function quickAddPage(id) {
   const b = books.find(x => x.id === id);
   if (!b) return;
-  b.used = !b.used;
+  b.pages = (b.pages || 0) + 1;
+  if (!b.used) b.used = true;
   await dbPut(b);
   closeOverlay(); renderLibrary(); updateHeader();
-  showToast(b.used ? '✅ Marked as used!' : '↩️ Marked as unused');
+  const total = b.totalPages > 0 ? ` (${Math.round(b.pages / b.totalPages * 100)}%)` : '';
+  showToast(`📖 Page added! ${b.pages} page${b.pages !== 1 ? 's' : ''} done${total}`);
 }
 
 function quickAddPhoto(id) {
@@ -1657,12 +1988,20 @@ async function saveBook() {
 
 async function deleteBook() {
   if (!editingId) return;
-  if (!confirm('Delete this book?')) return;
-  await dbDelete(editingId);
-  books = books.filter(b => b.id !== editingId);
-  editingId = null; resetForm();
-  showToast('🗑 Book deleted');
-  showView('library');
+  showConfirm(
+    'Delete Book',
+    'Are you sure you want to delete this book? This cannot be undone.',
+    [
+      { label: '🗑 Delete Book', style: 'danger', action: async () => {
+        await dbDelete(editingId);
+        books = books.filter(b => b.id !== editingId);
+        editingId = null; resetForm();
+        showToast('🗑 Book deleted');
+        showView('library');
+      }},
+      { label: 'Cancel', style: 'secondary' },
+    ]
+  );
 }
 
 function updateAuthorList() {
@@ -1790,10 +2129,34 @@ function doSearch() {
 }
 
 // ── Toast ─────────────────────────────────────────────────────
-function showToast(msg) {
+// ── Reusable confirm modal ────────────────────────────────────
+// buttons: [{ label, style ('primary'|'danger'|'secondary'), action }]
+function showConfirm(title, message, buttons) {
+  return new Promise(resolve => {
+    document.getElementById('confirm-title').textContent   = title;
+    document.getElementById('confirm-message').textContent = message;
+    const btnContainer = document.getElementById('confirm-buttons');
+    btnContainer.innerHTML = '';
+    buttons.forEach((b, i) => {
+      const el = document.createElement('button');
+      el.className = `btn btn-${b.style || 'secondary'}`;
+      el.textContent = b.label;
+      el.style.marginBottom = i < buttons.length - 1 ? '10px' : '0';
+      el.onclick = () => {
+        document.getElementById('confirm-modal').style.display = 'none';
+        resolve(b.action || null);
+        if (typeof b.action === 'function') b.action();
+      };
+      btnContainer.appendChild(el);
+    });
+    document.getElementById('confirm-modal').style.display = 'flex';
+  });
+}
+
+function showToast(msg, duration = 2200) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2200);
+  setTimeout(() => t.classList.remove('show'), duration);
 }
 
 // ── Utils ─────────────────────────────────────────────────────
@@ -1951,11 +2314,18 @@ function renderCalDayPanel() {
       const reminderBadge = hasReminder
         ? `<span style="font-size:11px;font-weight:700;color:#1565C0;background:#BBDEFB;padding:2px 8px;border-radius:10px;white-space:nowrap">🔔 ${e.reminder.time}${e.reminder.daysBefore > 0 ? ` · ${e.reminder.daysBefore}d before` : ''}</span>`
         : '';
+      const repeatBadge = e.seriesId
+        ? `<span style="font-size:11px;font-weight:700;color:#6A1B9A;background:#E1BEE7;padding:2px 8px;border-radius:10px;white-space:nowrap">🔁 Repeating</span>`
+        : '';
+      const thumbHtml = (e.photo && safePhoto(e.photo))
+        ? `<img src="${e.photo}" style="width:48px;height:48px;object-fit:cover;border-radius:6px;flex-shrink:0;cursor:pointer" onclick="openCalImageModal('${e.id}')" alt="event image">`
+        : '';
       return `<div class="cal-event-card" style="${cardStyle}">
+        ${thumbHtml}
         <div style="flex:1;min-width:0">
           <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
             <div class="cal-event-name">${esc(e.name)}</div>
-            ${statusBadge}${reminderBadge}
+            ${statusBadge}${reminderBadge}${repeatBadge}
           </div>
           ${e.notes ? `<div class="cal-event-notes">${esc(e.notes)}</div>` : ''}
         </div>
@@ -2012,13 +2382,29 @@ function renderUpcoming() {
 function calPrev() { calMonth--; if (calMonth < 0) { calMonth = 11; calYear--; } renderCalendar(); }
 function calNext() { calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; } renderCalendar(); }
 
+function toggleRepeat() {
+  const t = document.getElementById('t-repeat');
+  const on = t.classList.toggle('on');
+  document.getElementById('repeat-options').style.display = on ? 'block' : 'none';
+}
+
+function setRepeatUI(enabled, intervalDays) {
+  document.getElementById('t-repeat').classList.toggle('on', enabled);
+  document.getElementById('repeat-options').style.display = enabled ? 'block' : 'none';
+  document.getElementById('cal-f-repeat').value = String(intervalDays || 14);
+}
+
 function openCalAdd() {
   calEditId = null;
   document.getElementById('cal-sheet-title').textContent = 'Add Event';
+  document.getElementById('cal-f-date').value = calSelected || '';
   document.getElementById('cal-f-name').value = '';
   document.getElementById('cal-f-notes').value = '';
   setCalStatusUI(null);
+  setRepeatUI(false, 14);
   setReminderUI(false, '09:00', 0);
+  currentCalPhoto = null;
+  resetCalPhotoUI();
   document.getElementById('cal-overlay').classList.add('open');
 }
 
@@ -2027,12 +2413,25 @@ function openCalEdit(id) {
   if (!ev) return;
   calEditId = id;
   document.getElementById('cal-sheet-title').textContent = 'Edit Event';
+  document.getElementById('cal-f-date').value = ev.date || '';
   document.getElementById('cal-f-name').value = ev.name;
   document.getElementById('cal-f-notes').value = ev.notes || '';
   setCalStatusUI(ev.status || null);
+  setRepeatUI(!!ev.seriesId, ev.repeatDays || 14);
   const r = ev.reminder || {};
   setReminderUI(!!r.enabled, r.time || '09:00', r.daysBefore || 0);
+  currentCalPhoto = ev.photo || null;
+  if (currentCalPhoto) showCalPhotoPreview(currentCalPhoto);
+  else resetCalPhotoUI();
   document.getElementById('cal-overlay').classList.add('open');
+}
+
+function openCalImageModal(id) {
+  const ev = calEvents.find(e => e.id === id);
+  if (!ev?.photo) return;
+  const modal = document.getElementById('cal-img-modal');
+  document.getElementById('cal-img-modal-img').src = ev.photo;
+  modal.style.display = 'flex';
 }
 
 function setCalStatus(type) {
@@ -2075,6 +2474,8 @@ function toggleReminder() {
 async function saveCalEvent() {
   const name = document.getElementById('cal-f-name').value.trim();
   if (!name) { showToast('⚠️ Please enter an event name'); return; }
+  const date = document.getElementById('cal-f-date').value;
+  if (!date) { showToast('⚠️ Please select a date'); return; }
 
   const reminderEnabled = document.getElementById('t-reminder').classList.contains('on');
   let reminder = null;
@@ -2096,30 +2497,114 @@ async function saveCalEvent() {
     }
   }
 
+  const repeatEnabled = document.getElementById('t-repeat').classList.contains('on');
+  const repeatDays    = repeatEnabled ? parseInt(document.getElementById('cal-f-repeat').value) || 14 : null;
+
+  // If editing and repeat was previously on, delete old series occurrences first
+  if (calEditId) {
+    const existing = calEvents.find(e => e.id === calEditId);
+    if (existing?.seriesId) {
+      const seriesId = existing.seriesId;
+      const toDelete = calEvents.filter(e => e.seriesId === seriesId && e.date >= existing.date && e.id !== calEditId);
+      for (const old of toDelete) {
+        await dbDeleteCal(old.id);
+        calEvents = calEvents.filter(e => e.id !== old.id);
+      }
+    }
+  }
+
+  const seriesId = repeatEnabled ? (calEvents.find(e => e.id === calEditId)?.seriesId || uid()) : null;
+
   const ev = {
-    id:       calEditId || uid(),
-    date:     calSelected,
+    id:         calEditId || uid(),
+    date:       date,
     name,
-    notes:    document.getElementById('cal-f-notes').value.trim(),
-    status:   getCalStatus(),
-    reminder: reminder,
+    notes:      document.getElementById('cal-f-notes').value.trim(),
+    status:     getCalStatus(),
+    photo:      currentCalPhoto || null,
+    reminder:   reminder,
+    seriesId:   seriesId,
+    repeatDays: repeatDays,
   };
   await dbPutCal(ev);
   const idx = calEvents.findIndex(e => e.id === ev.id);
   if (idx >= 0) calEvents[idx] = ev; else calEvents.push(ev);
+
+  // Generate future occurrences (6 months ahead)
+  if (repeatEnabled && repeatDays) {
+    const MONTHS_AHEAD = 6;
+    const cutoff = new Date(); cutoff.setMonth(cutoff.getMonth() + MONTHS_AHEAD);
+    let cursor = new Date(date + 'T00:00:00');
+    cursor.setDate(cursor.getDate() + repeatDays);
+    while (cursor <= cutoff) {
+      const occDate = cursor.toISOString().slice(0, 10);
+      const occ = {
+        id:         uid(),
+        date:       occDate,
+        name,
+        notes:      ev.notes,
+        status:     null,
+        photo:      currentCalPhoto || null,
+        reminder:   reminder ? { ...reminder } : null,
+        seriesId:   seriesId,
+        repeatDays: repeatDays,
+      };
+      await dbPutCal(occ);
+      calEvents.push(occ);
+      cursor.setDate(cursor.getDate() + repeatDays);
+    }
+  }
+
   scheduleNotifications();
   closeCalOverlay();
   renderCalendar();
-  showToast(reminder ? '✅ Event saved with reminder!' : '✅ Event saved!');
+  const repeatMsg = repeatEnabled ? ` (repeating every ${repeatDays === 7 ? '1 week' : repeatDays === 14 ? '2 weeks' : '4 weeks'})` : '';
+  showToast(reminder ? `✅ Event saved with reminder!${repeatMsg}` : `✅ Event saved!${repeatMsg}`);
 }
 
 async function deleteCalEvent(id) {
-  if (!confirm('Delete this event?')) return;
-  await dbDeleteCal(id);
-  calEvents = calEvents.filter(e => e.id !== id);
-  scheduleNotifications();
-  renderCalendar();
-  showToast('🗑 Event deleted');
+  const ev = calEvents.find(e => e.id === id);
+  if (!ev) return;
+
+  if (ev.seriesId) {
+    showConfirm(
+      'Delete Repeating Event',
+      'This event is part of a repeating series. What would you like to delete?',
+      [
+        { label: '🗑 Delete all future events in series', style: 'danger', action: async () => {
+          const toDelete = calEvents.filter(e => e.seriesId === ev.seriesId && e.date >= ev.date);
+          for (const e of toDelete) await dbDeleteCal(e.id);
+          calEvents = calEvents.filter(e => !(e.seriesId === ev.seriesId && e.date >= ev.date));
+          scheduleNotifications();
+          renderCalendar();
+          showToast('🗑 Series events deleted');
+        }},
+        { label: 'Delete this event only', style: 'secondary', action: async () => {
+          await dbDeleteCal(id);
+          calEvents = calEvents.filter(e => e.id !== id);
+          scheduleNotifications();
+          renderCalendar();
+          showToast('🗑 Event deleted');
+        }},
+        { label: 'Cancel', style: 'secondary' },
+      ]
+    );
+  } else {
+    showConfirm(
+      'Delete Event',
+      'Are you sure you want to delete this event?',
+      [
+        { label: '🗑 Delete Event', style: 'danger', action: async () => {
+          await dbDeleteCal(id);
+          calEvents = calEvents.filter(e => e.id !== id);
+          scheduleNotifications();
+          renderCalendar();
+          showToast('🗑 Event deleted');
+        }},
+        { label: 'Cancel', style: 'secondary' },
+      ]
+    );
+  }
 }
 
 // ── Notification scheduling ───────────────────────────────────
@@ -2174,10 +2659,10 @@ const THEME_KEY = 'colour_bookshelf_theme';
 const PRESETS = [
   { id: 'forest',   label: '🌿 Forest',   primary: '#4D9166', bg: '#D0EBCD' },
   { id: 'autumn',   label: '🍂 Autumn',   primary: '#B5714A', bg: '#F5EFE4' },
-  { id: 'ocean',    label: '🌊 Ocean',    primary: '#2E7FAA', bg: '#CCE8F5' },
+  { id: 'ocean',    label: '🌊 Ocean',    primary: '#4A9DB8', bg: '#E0F2F8' },
   { id: 'blossom',  label: '🌸 Blossom',  primary: '#B85C7E', bg: '#F5D8E6' },
   { id: 'lilac',    label: '💜 Lilac',    primary: '#7762B5', bg: '#EAE4F7' },
-  { id: 'slate',    label: '🌙 Slate',    primary: '#4A6FA8', bg: '#DDE5F2' },
+  { id: 'slate',    label: '🌙 Slate',    primary: '#3A3D42', bg: '#EAEAEC' },
 ];
 
 // Hex ↔ RGB ↔ HSL helpers
@@ -2269,6 +2754,10 @@ function applyTheme(primary, bg) {
   // Badge colours derived from theme
   const badgeUsedBg   = rgbToHex(...hslToRgb(...rgbToHsl(...hexToRgb(t.primary)).map((v,i)=>i===2?Math.min(v+36,94):v)));
   updateBadgeStyles(badgeUsedBg, t.pDark, t.bgDark, t.inkSoft);
+
+  // Update system UI colour (navigation bar / status bar on Android)
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (metaTheme) metaTheme.setAttribute('content', t.primary);
 }
 
 function hexToRgba(hex, alpha) {
@@ -2420,7 +2909,25 @@ function confirmWheelPicker() {
 function updatePickerPreview() {
   const hex = hsvToHex(pickerH, pickerS, pickerV);
   document.getElementById('wheel-preview-swatch').style.background = hex;
-  document.getElementById('wheel-preview-hex').textContent = hex.toUpperCase();
+  const hexInput = document.getElementById('wheel-preview-hex');
+  // Only update if not currently focused (don't interrupt typing)
+  if (document.activeElement !== hexInput) {
+    hexInput.value = hex.toUpperCase();
+  }
+}
+
+function onHexInput(val) {
+  // Auto-prepend # if missing
+  if (val && !val.startsWith('#')) val = '#' + val;
+  const hexInput = document.getElementById('wheel-preview-hex');
+  hexInput.value = val;
+  if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+    [pickerH, pickerS, pickerV] = hexToHsv(val);
+    document.getElementById('wheel-preview-swatch').style.background = val;
+    drawHueRing();
+    drawSatSlider();
+    drawBrtSlider();
+  }
 }
 
 function drawHueRing() {
@@ -2561,6 +3068,7 @@ function exportData() {
     version: 1,
     exportDate: new Date().toISOString(),
     books: books,
+    calEvents: calEvents,
   };
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
   const url  = URL.createObjectURL(blob);
@@ -2569,6 +3077,7 @@ function exportData() {
   a.download = `colouring-bookshelf-backup-${new Date().toISOString().slice(0,10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
+  localStorage.setItem('cb_last_backup', Date.now().toString());
   showToast('📦 Backup saved!');
 }
 
@@ -2596,22 +3105,44 @@ async function handleImport(e) {
     const imported = raw.map(sanitiseBook).filter(b => b.title);
 
     const existing = books.length;
+    const title = 'Import Backup';
     const msg = existing > 0
-      ? `This will add ${imported.length} book(s) to your existing ${existing}. Continue?`
-      : `Import ${imported.length} book(s)?`;
-    if (!confirm(msg)) return;
+      ? `This will add ${imported.length} book(s) to your existing ${existing} books. Continue?`
+      : `Import ${imported.length} book(s) into your library?`;
 
-    const existingIds = new Set(books.map(b => b.id));
-    let added = 0;
-    for (const book of imported) {
-      if (!existingIds.has(book.id)) {
-        books.push(book);
-        await dbPut(book);
-        added++;
-      }
-    }
-    renderLibrary(); updateHeader();
-    showToast(`✅ Imported ${added} book${added !== 1 ? 's' : ''}!`);
+    showConfirm(title, msg, [
+      { label: '✅ Import', style: 'primary', action: async () => {
+        const existingIds = new Set(books.map(b => b.id));
+        let added = 0;
+        for (const book of imported) {
+          if (!existingIds.has(book.id)) {
+            books.push(book);
+            await dbPut(book);
+            added++;
+          }
+        }
+        if (Array.isArray(payload.calEvents)) {
+          const existingCalIds = new Set(calEvents.map(e => e.id));
+          for (const raw of payload.calEvents) {
+            if (!raw.id || existingCalIds.has(raw.id)) continue;
+            const ev = {
+              id:       safeStr(raw.id, 64).replace(/[^a-zA-Z0-9_-]/g,'') || uid(),
+              date:     safeStr(raw.date, 10),
+              name:     safeStr(raw.name),
+              notes:    safeStr(raw.notes),
+              status:   ['done','skipped'].includes(raw.status) ? raw.status : null,
+              photo:    safePhoto(raw.photo) || null,
+              reminder: raw.reminder || null,
+            };
+            calEvents.push(ev);
+            await dbPutCal(ev);
+          }
+        }
+        renderLibrary(); updateHeader();
+        showToast(`✅ Imported ${added} book${added !== 1 ? 's' : ''}!`);
+      }},
+      { label: 'Cancel', style: 'secondary' },
+    ]);
   } catch (err) {
     showToast('❌ Could not read that file');
   }
@@ -2642,6 +3173,28 @@ async function handleImport(e) {
   renderLibrary();
   updateHeader();
   scheduleNotifications();
+
+  // Restore lib view toggle state
+  document.getElementById('btn-list-view').classList.toggle('active', libView === 'list');
+  document.getElementById('btn-grid-view').classList.toggle('active', libView === 'grid');
+
+  // Attach virtualisation scroll listener
+  document.getElementById('view-library').addEventListener('scroll', onLibraryScroll, { passive: true });
+
+  // Request persistent storage so browser won't auto-evict data
+  if (navigator.storage && navigator.storage.persist) {
+    navigator.storage.persist();
+  }
+
+  // Backup reminder — nudge if no backup in 30 days and user has books
+  const BACKUP_KEY = 'cb_last_backup';
+  const lastBackup = parseInt(localStorage.getItem(BACKUP_KEY) || '0');
+  const daysSince  = (Date.now() - lastBackup) / (1000 * 60 * 60 * 24);
+  if (books.length > 0 && daysSince > 14) {
+    setTimeout(() => {
+      showToast('💾 Reminder: back up your data in Settings → Your Data!', 5000);
+    }, 3000);
+  }
 })();
 </script>
 </body>
